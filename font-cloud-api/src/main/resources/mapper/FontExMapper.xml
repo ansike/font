@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.font.cloud.font.dao.FontExMapper">
+
+  <resultMap id="fontDtoResultMap" type="com.fd.font.cloud.font.dto.FontDto">
+  	<result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="ttf_download_url" jdbcType="VARCHAR" property="ttfDownloadUrl" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+  </resultMap>
+  
+  <resultMap id="fontDetailDtoResultMap" type="com.fd.font.cloud.font.dto.FontDetailDto">
+  	<result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+    <result column="ttf_download_url" jdbcType="VARCHAR" property="ttfDownloadUrl" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+  </resultMap>
+  
+  <select id="findAll" resultMap="fontDtoResultMap">
+  	SELECT f.code, 
+  		f.name, 
+  		f.introduction, 
+  		fv.ttf_download_url, 
+  		p.width, 
+  		p.height, 
+  		p.pic_url 
+  	FROM t_font AS f, t_font_version AS fv, t_font_version_pic AS p 
+	WHERE f.font_id = fv.font_id
+		AND fv.font_version_id = p.font_version_id 
+		AND pic_type = 1
+  </select>
+  
+  <select id="selectByFontCode" parameterType="String" resultMap="fontDetailDtoResultMap">
+  	SELECT f.code, 
+  		f.name, 
+  		f.introduction, 
+  		f.author, 
+  		fv.version_name, 
+  		fv.ttf_download_url, 
+  		p.width, 
+  		p.height, 
+  		p.pic_url 
+  	FROM t_font AS f, t_font_version AS fv, t_font_version_pic AS p 
+	WHERE f.font_id=fv.font_id AND 
+		fv.font_version_id = p.font_version_id 
+		AND f.code= #{code,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

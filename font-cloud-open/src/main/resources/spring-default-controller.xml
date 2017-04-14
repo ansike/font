@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 配置直接转发的页面 -->
+	<mvc:view-controller path="/pro/index" view-name="index" />
+	
+	<mvc:view-controller path="/pro/template/accountCenter/account" view-name="template/accountCenter/account" />
+	<mvc:view-controller path="/pro/template/accountCenter/accountEdit" view-name="template/accountCenter/accountEdit" />
+	<mvc:view-controller path="/pro/template/accountCenter/resetPsw" view-name="template/accountCenter/resetPsw" />
+	
+	<mvc:view-controller path="/pro/template/common/header" view-name="template/common/header" />
+	
+	<mvc:view-controller path="/pro/template/feedback/index" view-name="template/feedback/index" />
+	
+	<mvc:view-controller path="/pro/template/manageCenter/application" view-name="template/manageCenter/application" />
+	<mvc:view-controller path="/pro/template/manageCenter/applicationDetail" view-name="template/manageCenter/applicationDetail" />
+	<mvc:view-controller path="/pro/template/manageCenter/createApp" view-name="template/manageCenter/createApp" />
+	
+	<mvc:view-controller path="/pro/template/register/index" view-name="template/register/index" />
+	<mvc:view-controller path="/pro/template/resourceCenter/resource" view-name="template/resourceCenter/resource" />
+	
+	<mvc:view-controller path="/pro/template/retrievepwd/retrieve" view-name="template/retrievepwd/retrieve" />
+</beans>

@@ -1,0 +1,25 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+*.jar
+# ignore Maven generated target folders
+target
+
+# ignore eclipse files
+.project
+.classpath
+.settings
+.metadata
+
+# ignore idea files
+.idea/
+*.iml
+/generatorConfig.xml
+
+**/catalina.base_IS_UNDEFINED/
+
+package.json
+gulpfile.js
+node_modules/

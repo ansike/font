@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fd.font.cloud.app.dao.AppMapper" >
+  <resultMap id="BaseResultMap" type="com.fd.font.cloud.app.entity.App" >
+    <id column="app_id" property="appId" jdbcType="INTEGER" />
+    <result column="developer_id" property="developerId" jdbcType="INTEGER" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="app_key" property="appKey" jdbcType="VARCHAR" />
+    <result column="app_secret" property="appSecret" jdbcType="VARCHAR" />
+    <result column="app_type" property="appType" jdbcType="TINYINT" />
+    <result column="max_font_num" property="maxFontNum" jdbcType="TINYINT" />
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="update_frequency" property="updateFrequency" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    app_id, developer_id, app_name, app_key, app_secret, app_type, max_font_num, icon_url, 
+    introduction, update_frequency, create_by, create_time, update_by, update_time, is_deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fd.font.cloud.app.entity.AppExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_app
+    where app_id = #{appId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_app
+    where app_id = #{appId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fd.font.cloud.app.entity.AppExample" >
+    delete from t_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fd.font.cloud.app.entity.App" >
+    <selectKey resultType="java.lang.Integer" keyProperty="appId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_app (developer_id, app_name, app_key, 
+      app_secret, app_type, max_font_num, 
+      icon_url, introduction, update_frequency, 
+      create_by, create_time, update_by, 
+      update_time, is_deleted)
+    values (#{developerId,jdbcType=INTEGER}, #{appName,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, 
+      #{appSecret,jdbcType=VARCHAR}, #{appType,jdbcType=TINYINT}, #{maxFontNum,jdbcType=TINYINT}, 
+      #{iconUrl,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{updateFrequency,jdbcType=INTEGER}, 
+      #{createBy,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fd.font.cloud.app.entity.App" >
+    <selectKey resultType="java.lang.Integer" keyProperty="appId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="developerId != null" >
+        developer_id,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="appKey != null" >
+        app_key,
+      </if>
+      <if test="appSecret != null" >
+        app_secret,
+      </if>
+      <if test="appType != null" >
+        app_type,
+      </if>
+      <if test="maxFontNum != null" >
+        max_font_num,
+      </if>
+      <if test="iconUrl != null" >
+        icon_url,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="updateFrequency != null" >
+        update_frequency,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="developerId != null" >
+        #{developerId,jdbcType=INTEGER},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null" >
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null" >
+        #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=TINYINT},
+      </if>
+      <if test="maxFontNum != null" >
+        #{maxFontNum,jdbcType=TINYINT},
+      </if>
+      <if test="iconUrl != null" >
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFrequency != null" >
+        #{updateFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fd.font.cloud.app.entity.AppExample" resultType="java.lang.Integer" >
+    select count(*) from t_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_app
+    <set >
+      <if test="record.appId != null" >
+        app_id = #{record.appId,jdbcType=INTEGER},
+      </if>
+      <if test="record.developerId != null" >
+        developer_id = #{record.developerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.appName != null" >
+        app_name = #{record.appName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appKey != null" >
+        app_key = #{record.appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appSecret != null" >
+        app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appType != null" >
+        app_type = #{record.appType,jdbcType=TINYINT},
+      </if>
+      <if test="record.maxFontNum != null" >
+        max_font_num = #{record.maxFontNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.iconUrl != null" >
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateFrequency != null" >
+        update_frequency = #{record.updateFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_app
+    set app_id = #{record.appId,jdbcType=INTEGER},
+      developer_id = #{record.developerId,jdbcType=INTEGER},
+      app_name = #{record.appName,jdbcType=VARCHAR},
+      app_key = #{record.appKey,jdbcType=VARCHAR},
+      app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      app_type = #{record.appType,jdbcType=TINYINT},
+      max_font_num = #{record.maxFontNum,jdbcType=TINYINT},
+      icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      update_frequency = #{record.updateFrequency,jdbcType=INTEGER},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fd.font.cloud.app.entity.App" >
+    update t_app
+    <set >
+      <if test="developerId != null" >
+        developer_id = #{developerId,jdbcType=INTEGER},
+      </if>
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null" >
+        app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null" >
+        app_secret = #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null" >
+        app_type = #{appType,jdbcType=TINYINT},
+      </if>
+      <if test="maxFontNum != null" >
+        max_font_num = #{maxFontNum,jdbcType=TINYINT},
+      </if>
+      <if test="iconUrl != null" >
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFrequency != null" >
+        update_frequency = #{updateFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where app_id = #{appId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fd.font.cloud.app.entity.App" >
+    update t_app
+    set developer_id = #{developerId,jdbcType=INTEGER},
+      app_name = #{appName,jdbcType=VARCHAR},
+      app_key = #{appKey,jdbcType=VARCHAR},
+      app_secret = #{appSecret,jdbcType=VARCHAR},
+      app_type = #{appType,jdbcType=TINYINT},
+      max_font_num = #{maxFontNum,jdbcType=TINYINT},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      update_frequency = #{updateFrequency,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=TINYINT}
+    where app_id = #{appId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List" >
+    insert into t_app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="list[0].appId!=null" >
+        app_id,
+      </if>
+      <if test="list[0].developerId!=null" >
+        developer_id,
+      </if>
+      <if test="list[0].appName!=null" >
+        app_name,
+      </if>
+      <if test="list[0].appKey!=null" >
+        app_key,
+      </if>
+      <if test="list[0].appSecret!=null" >
+        app_secret,
+      </if>
+      <if test="list[0].appType!=null" >
+        app_type,
+      </if>
+      <if test="list[0].maxFontNum!=null" >
+        max_font_num,
+      </if>
+      <if test="list[0].iconUrl!=null" >
+        icon_url,
+      </if>
+      <if test="list[0].introduction!=null" >
+        introduction,
+      </if>
+      <if test="list[0].updateFrequency!=null" >
+        update_frequency,
+      </if>
+      <if test="list[0].createBy!=null" >
+        create_by,
+      </if>
+      <if test="list[0].createTime!=null" >
+        create_time,
+      </if>
+      <if test="list[0].updateBy!=null" >
+        update_by,
+      </if>
+      <if test="list[0].updateTime!=null" >
+        update_time,
+      </if>
+      <if test="list[0].isDeleted!=null" >
+        is_deleted,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator="," >
+      <trim prefix=" (" suffix=")" suffixOverrides="," >
+        <if test="item.appId!=null" >
+          #{item.appId,jdbcType=INTEGER},
+        </if>
+        <if test="item.developerId!=null" >
+          #{item.developerId,jdbcType=INTEGER},
+        </if>
+        <if test="item.appName!=null" >
+          #{item.appName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.appKey!=null" >
+          #{item.appKey,jdbcType=VARCHAR},
+        </if>
+        <if test="item.appSecret!=null" >
+          #{item.appSecret,jdbcType=VARCHAR},
+        </if>
+        <if test="item.appType!=null" >
+          #{item.appType,jdbcType=TINYINT},
+        </if>
+        <if test="item.maxFontNum!=null" >
+          #{item.maxFontNum,jdbcType=TINYINT},
+        </if>
+        <if test="item.iconUrl!=null" >
+          #{item.iconUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.introduction!=null" >
+          #{item.introduction,jdbcType=VARCHAR},
+        </if>
+        <if test="item.updateFrequency!=null" >
+          #{item.updateFrequency,jdbcType=INTEGER},
+        </if>
+        <if test="item.createBy!=null" >
+          #{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          #{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          #{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateTime!=null" >
+          #{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.isDeleted!=null" >
+          #{item.isDeleted,jdbcType=TINYINT},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" separator=";" >
+      update t_app
+      <set >
+        <if test="item.developerId!=null" >
+          developer_id=#{item.developerId,jdbcType=INTEGER},
+        </if>
+        <if test="item.appName!=null" >
+          app_name=#{item.appName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.appKey!=null" >
+          app_key=#{item.appKey,jdbcType=VARCHAR},
+        </if>
+        <if test="item.appSecret!=null" >
+          app_secret=#{item.appSecret,jdbcType=VARCHAR},
+        </if>
+        <if test="item.appType!=null" >
+          app_type=#{item.appType,jdbcType=TINYINT},
+        </if>
+        <if test="item.maxFontNum!=null" >
+          max_font_num=#{item.maxFontNum,jdbcType=TINYINT},
+        </if>
+        <if test="item.iconUrl!=null" >
+          icon_url=#{item.iconUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.introduction!=null" >
+          introduction=#{item.introduction,jdbcType=VARCHAR},
+        </if>
+        <if test="item.updateFrequency!=null" >
+          update_frequency=#{item.updateFrequency,jdbcType=INTEGER},
+        </if>
+        <if test="item.createBy!=null" >
+          create_by=#{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          create_time=#{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          update_by=#{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateTime!=null" >
+          update_time=#{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.isDeleted!=null" >
+          is_deleted=#{item.isDeleted,jdbcType=TINYINT},
+        </if>
+      </set>
+      where 
+      app_id = #{item.appId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>

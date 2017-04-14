@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fd.font.cloud.font.dao.FontTagMapper" >
+  <resultMap id="BaseResultMap" type="com.fd.font.cloud.font.entity.FontTag" >
+    <id column="font_tag_id" property="fontTagId" jdbcType="INTEGER" />
+    <result column="font_id" property="fontId" jdbcType="INTEGER" />
+    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="create_by" property="createBy" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+    <result column="upate_time" property="upateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    font_tag_id, font_id, tag_id, is_deleted, create_by, create_time, update_by, upate_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fd.font.cloud.font.entity.FontTagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_font_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_font_tag
+    where font_tag_id = #{fontTagId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_font_tag
+    where font_tag_id = #{fontTagId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fd.font.cloud.font.entity.FontTagExample" >
+    delete from t_font_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fd.font.cloud.font.entity.FontTag" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fontTagId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_font_tag (font_id, tag_id, is_deleted, 
+      create_by, create_time, update_by, 
+      upate_time)
+    values (#{fontId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, #{isDeleted,jdbcType=TINYINT}, 
+      #{createBy,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, 
+      #{upateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fd.font.cloud.font.entity.FontTag" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fontTagId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_font_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fontId != null" >
+        font_id,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="upateTime != null" >
+        upate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fontId != null" >
+        #{fontId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="upateTime != null" >
+        #{upateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fd.font.cloud.font.entity.FontTagExample" resultType="java.lang.Integer" >
+    select count(*) from t_font_tag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_font_tag
+    <set >
+      <if test="record.fontTagId != null" >
+        font_tag_id = #{record.fontTagId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fontId != null" >
+        font_id = #{record.fontId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tagId != null" >
+        tag_id = #{record.tagId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.upateTime != null" >
+        upate_time = #{record.upateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_font_tag
+    set font_tag_id = #{record.fontTagId,jdbcType=INTEGER},
+      font_id = #{record.fontId,jdbcType=INTEGER},
+      tag_id = #{record.tagId,jdbcType=INTEGER},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER},
+      upate_time = #{record.upateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fd.font.cloud.font.entity.FontTag" >
+    update t_font_tag
+    <set >
+      <if test="fontId != null" >
+        font_id = #{fontId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="upateTime != null" >
+        upate_time = #{upateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where font_tag_id = #{fontTagId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fd.font.cloud.font.entity.FontTag" >
+    update t_font_tag
+    set font_id = #{fontId,jdbcType=INTEGER},
+      tag_id = #{tagId,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      upate_time = #{upateTime,jdbcType=TIMESTAMP}
+    where font_tag_id = #{fontTagId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List" >
+    insert into t_font_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="list[0].fontTagId!=null" >
+        font_tag_id,
+      </if>
+      <if test="list[0].fontId!=null" >
+        font_id,
+      </if>
+      <if test="list[0].tagId!=null" >
+        tag_id,
+      </if>
+      <if test="list[0].isDeleted!=null" >
+        is_deleted,
+      </if>
+      <if test="list[0].createBy!=null" >
+        create_by,
+      </if>
+      <if test="list[0].createTime!=null" >
+        create_time,
+      </if>
+      <if test="list[0].updateBy!=null" >
+        update_by,
+      </if>
+      <if test="list[0].upateTime!=null" >
+        upate_time,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator="," >
+      <trim prefix=" (" suffix=")" suffixOverrides="," >
+        <if test="item.fontTagId!=null" >
+          #{item.fontTagId,jdbcType=INTEGER},
+        </if>
+        <if test="item.fontId!=null" >
+          #{item.fontId,jdbcType=INTEGER},
+        </if>
+        <if test="item.tagId!=null" >
+          #{item.tagId,jdbcType=INTEGER},
+        </if>
+        <if test="item.isDeleted!=null" >
+          #{item.isDeleted,jdbcType=TINYINT},
+        </if>
+        <if test="item.createBy!=null" >
+          #{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          #{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          #{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.upateTime!=null" >
+          #{item.upateTime,jdbcType=TIMESTAMP},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" separator=";" >
+      update t_font_tag
+      <set >
+        <if test="item.fontId!=null" >
+          font_id=#{item.fontId,jdbcType=INTEGER},
+        </if>
+        <if test="item.tagId!=null" >
+          tag_id=#{item.tagId,jdbcType=INTEGER},
+        </if>
+        <if test="item.isDeleted!=null" >
+          is_deleted=#{item.isDeleted,jdbcType=TINYINT},
+        </if>
+        <if test="item.createBy!=null" >
+          create_by=#{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          create_time=#{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          update_by=#{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.upateTime!=null" >
+          upate_time=#{item.upateTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where 
+      font_tag_id = #{item.fontTagId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>

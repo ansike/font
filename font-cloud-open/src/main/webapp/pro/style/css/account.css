@@ -1,0 +1,188 @@
+
+
+/*包含通用的一些样式以及利用bootstrap.css中的选择器进行样式修改部分*/
+
+.input_code{
+    position:relative;
+}
+.input_code .code_text{
+    padding-right:200px;
+}
+.input_code .code_btn{
+    width:120px;
+    text-align:center;
+    border-left:1px solid #ccc;
+    margin:10px 0;
+    padding:0;
+    border-radius:0;
+    background:#fff;
+    position:absolute;
+    right:30px;
+    top:0;
+    outline:none;
+}
+
+/*账号信息*/
+.account_title{
+    padding:31px 0 15px;
+}
+.account_title span{
+    float:left;
+    font-size:18px;
+    margin-top:9px;
+}
+.account_info li{
+    margin-top:40px;
+    position:relative;
+}
+.account_info ul .left{
+    float:left;
+}
+.info_update .left{
+    display:inline-block;
+    line-height:40px;
+}
+.account_info ul .right{
+    padding-left:110px;
+    word-wrap:break-word;
+    font-size: 16px;
+}
+.account_info .info_update input,
+.account_info .info_update textarea{
+    max-width:445px;
+}
+.account_info .info_update textarea {
+    resize:none;
+    padding-bottom:20px;
+}
+.account_info .textarea_wrap{
+    position:relative;
+    max-width:555px;
+}
+.account_info .textarea_wrap span{
+    font-size:12px;
+   position:absolute;
+    right:5px;
+    bottom:1px;
+    line-height:20px;
+    background:#fff;
+    color:#BABABA;
+}
+.account_info  .btn_group {
+    text-align:center;
+    max-width:545px;
+}
+ /*修改密码*/
+.reset_psw{
+    font-size:16px;
+}
+.reset_psw .reset_tip{
+    margin-top:45px;
+    color:#BABABA;
+    line-height:40px;
+}
+.reset_psw .reset_tip span{
+    margin-right:40px;
+    color:#494949;
+}
+.input{
+    position:relative;
+    margin:30px 0;
+}
+.input .input_left{
+    display:inline-block;
+    width:110px;
+    padding-left:14px;
+    height:30px;
+    line-height:30px;
+   position:absolute;
+    left:0;
+    top:9px;
+    border-right:1px solid  #ccc;
+}
+
+.input input[type="text"],
+.input input[type="password"]{
+    padding-left:130px;
+}
+
+.input .code_btn{
+    display:inline-block;
+    position:absolute;
+    right:1px;
+    top:1px;
+    width:134px;
+    padding-top:11px;
+    padding-bottom:11px;
+    background:rgba(0,0,0,0);
+    outline:none;
+    font-size:16px;
+    border:1px solid #ccc;
+    text-align:center;
+    outline:none;
+}
+.input .code_btn:focus {
+    outline:none;
+    background:rgba(0,0,0,0);
+}
+.psw_step{
+    margin-top:35px;
+}
+.psw_step .next_btns{
+    text-align:center;
+    margin-top:40px;
+}
+
+.psw_step .user_mobile{
+    padding:15px 0;
+    padding-left:10px;
+}
+.psw_step .user_mobile span{
+    margin-left:20px;
+    font-size:16px;
+}
+.error_tip{
+    color:#f00;
+    font-size:12px;
+    padding-top:10px;
+    padding-left:16px;
+    position:absolute;
+    bottom:-25px;
+    background:url(/pro/img/error.png) no-repeat 0 6px;
+    background-size:14px;
+}
+.img_code{
+    width:134px;
+    height:46px;
+    position:absolute;
+    right:1px;
+    top:1px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+}
+
+@media screen and (min-width:768px){
+    .account_info ul{
+        padding:0 100px;
+    }
+    .reset_psw .reset_tip{
+        padding-left:100px;
+    }
+    .account_info  .btn_group button{
+        margin:0 50px;
+    }
+    .psw_step{
+        max-width:450px;
+        margin-left:200px;
+    }
+    .psw_step .next_btns button{
+        margin:0 50px;
+    }
+    .input .code_text {
+        max-width: 300px;
+    }
+}
+
+
+

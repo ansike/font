@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--
+生成mapper命令
+java -jar mybatis.jar -configfile generatorConfig.xml -overwrite
+-->
+<generatorConfiguration>
+	<classPathEntry location="C:\Users\zengxiaowei\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar" />
+ 	<context id="appInfo">
+ 		<plugin  type="com.bandaoti.mybatis.generator.CustomPlugin"></plugin>
+ 		<commentGenerator>
+ 		    <property name="suppressAllComments" value="true" />
+ 	  	</commentGenerator>
+ 		<jdbcConnection connectionURL="jdbc:mysql://192.168.248.219:3307/font-cloud?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true" driverClass="com.mysql.jdbc.Driver" password="abcd4321" userId="root" />
+ 		<javaModelGenerator targetPackage="com.fd.font.cloud.app.entity" targetProject="src/main/java" />
+ 		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+ 			<property name="enableSubPackages" value="true" />
+			<property name="isMergeable" value="false"/>
+ 		</sqlMapGenerator>
+ 		<javaClientGenerator targetPackage="com.fd.font.cloud.app.dao" targetProject="src/main/java" type="XMLMAPPER" />
+ 		<table tableName="t_app_font" domainObjectName="AppFont">
+ 			<generatedKey column="app_font_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 		<table tableName="t_app" domainObjectName="App">
+ 			<generatedKey column="app_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 	</context>
+ 	<context id="developerInfo">
+ 		<plugin  type="com.bandaoti.mybatis.generator.CustomPlugin"></plugin>
+ 		<commentGenerator>
+ 		    <property name="suppressAllComments" value="true" />
+ 	  	</commentGenerator>
+ 		<jdbcConnection connectionURL="jdbc:mysql://192.168.248.219:3307/font-cloud?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true" driverClass="com.mysql.jdbc.Driver" password="abcd4321" userId="root" />
+ 		<javaModelGenerator targetPackage="com.fd.font.cloud.developer.entity" targetProject="src/main/java" />
+ 		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+ 			<property name="enableSubPackages" value="true" />
+			<property name="isMergeable" value="false"/>
+ 		</sqlMapGenerator>
+ 		<javaClientGenerator targetPackage="com.fd.font.cloud.developer.dao" targetProject="src/main/java" type="XMLMAPPER" />
+ 		<table tableName="t_developer" domainObjectName="Developer">
+ 			<generatedKey column="developer_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 	</context>
+ 	<context id="fontInfo">
+ 		<plugin  type="com.bandaoti.mybatis.generator.CustomPlugin"></plugin>
+ 		<commentGenerator>
+ 		    <property name="suppressAllComments" value="true" />
+ 	  	</commentGenerator>
+ 		<jdbcConnection connectionURL="jdbc:mysql://192.168.248.219:3307/font-cloud?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true" driverClass="com.mysql.jdbc.Driver" password="abcd4321" userId="root" />
+ 		<javaModelGenerator targetPackage="com.fd.font.cloud.font.entity" targetProject="src/main/java" />
+ 		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+ 			<property name="enableSubPackages" value="true" />
+			<property name="isMergeable" value="false"/>
+ 		</sqlMapGenerator>
+ 		<javaClientGenerator targetPackage="com.fd.font.cloud.font.dao" targetProject="src/main/java" type="XMLMAPPER" />
+ 		<table tableName="t_font" domainObjectName="Font">
+ 			<generatedKey column="font_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 		<table tableName="t_font_tag" domainObjectName="FontTag">
+ 			<generatedKey column="font_tag_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 		<table tableName="t_font_version" domainObjectName="FontVersion">
+ 			<generatedKey column="font_version_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 		<table tableName="t_font_version_download" domainObjectName="FontVersionDownload">
+ 			<generatedKey column="download_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 		<table tableName="t_font_version_pic" domainObjectName="FontVersionPic">
+ 			<generatedKey column="pic_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 	</context>
+ 	<context id="tagInfo">
+ 		<plugin  type="com.bandaoti.mybatis.generator.CustomPlugin"></plugin>
+ 		<commentGenerator>
+ 		    <property name="suppressAllComments" value="true" />
+ 	  	</commentGenerator>
+ 		<jdbcConnection connectionURL="jdbc:mysql://192.168.248.219:3307/font-cloud?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true" driverClass="com.mysql.jdbc.Driver" password="abcd4321" userId="root" />
+ 		<javaModelGenerator targetPackage="com.fd.font.cloud.tag.entity" targetProject="src/main/java" />
+ 		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+ 			<property name="enableSubPackages" value="true" />
+			<property name="isMergeable" value="false"/>
+ 		</sqlMapGenerator>
+ 		<javaClientGenerator targetPackage="com.fd.font.cloud.tag.dao" targetProject="src/main/java" type="XMLMAPPER" />
+ 		<table tableName="t_tag" domainObjectName="Tag">
+ 			<generatedKey column="tag_id" sqlStatement="MySql" identity="true" />
+ 		</table>
+ 	</context>
+</generatorConfiguration>

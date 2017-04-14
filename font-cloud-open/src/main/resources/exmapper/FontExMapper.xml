@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.font.cloud.font.dao.FontExMapper">
+
+	<select id="findList" parameterType="com.fd.font.cloud.font.vo.FontVo" resultType= "com.fd.font.cloud.font.vo.FontVo">
+		SELECT 
+			tf.font_id AS fontId,tf.code,tf.name,tf.introduction,tf.author,
+			tf.curr_font_version_id AS currFontVersionId,tf.status,tf.create_by as createBy,tf.create_time as createTime,tfv.ttf_size AS fontSize,
+			tfv.default_cover_pic as picUrl
+		FROM t_font tf
+		INNER JOIN t_font_version tfv ON tfv.font_version_id = tf.curr_font_version_id and tf.font_id=tfv.font_id
+		<if test='tagValue!=null'>
+			LEFT JOIN t_font_tag tft on tft.font_id=tf.font_id
+			LEFT JOIN t_tag tt on tt.tag_id=tft.tag_id
+		</if>
+		<if test="order!='new'">
+		    LEFT JOIN t_font_version_download tfvd on tfvd.font_version_id=tfv.font_version_id
+		</if>
+		WHERE tf.is_deleted='0'
+	    <if test='tagValue!=null'>
+	    	AND tt.tag_value in (${tagValue})
+		</if>
+		<choose>
+			<when test="searchKey=='names'">  
+                AND tf.name REGEXP CONCAT('.*','${searchValue}','.*')
+            </when>
+            <when test="searchKey=='authors'">  
+                AND tf.author REGEXP CONCAT('.*','${searchValue}','.*')
+            </when>
+            <when test="searchKey=='search'">  
+                AND (tf.author REGEXP CONCAT('.*','${searchValue}','.*')
+                OR tf.name REGEXP CONCAT('.*','${searchValue}','.*'))
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+	  	<choose>
+			<when test="order=='new'">  
+                ORDER BY tf.create_time DESC
+            </when>
+            <otherwise>
+                ORDER BY tfvd.download_num DESC
+            </otherwise>
+        </choose>  
+	</select>
+	
+	<select id="findH5List" parameterType="java.util.Map" resultType= "com.fd.font.cloud.font.vo.FontDetailVo">
+		SELECT 
+			tf.font_id AS fontId,tf.code,tf.name,tf.introduction,tf.author,
+			tf.curr_font_version_id AS currFontVersionId,tf.status,tf.create_by as createBy,tf.create_time as createTime,tfv.ttf_size AS fontSize,
+			tfv.default_cover_pic as picUrl,tfvp.pic_url as h5PicUrl,tfv.ttf_download_url as ttfDownloadUrl
+		FROM t_font tf
+		INNER JOIN t_font_version tfv ON tfv.font_version_id = tf.curr_font_version_id and tf.font_id=tfv.font_id
+		LEFT JOIN t_font_version_pic tfvp on tfvp.font_id=tf.font_id AND tfvp.font_version_id=tfv.font_version_id AND tfvp.is_deleted=0 AND tfvp.pic_type=3
+		<if test="order!='new'">
+		    LEFT JOIN t_font_version_download tfvd on tfvd.font_version_id=tfv.font_version_id
+		</if>
+		WHERE tf.is_deleted='0'
+		<choose>
+			<when test="searchKey=='names'">  
+                AND tf.name REGEXP CONCAT('.*','${searchValue}','.*')
+            </when>
+            <when test="searchKey=='authors'">  
+                AND tf.author REGEXP CONCAT('.*','${searchValue}','.*')
+            </when>
+            <when test="searchKey=='search'">  
+                AND (tf.author REGEXP CONCAT('.*','${searchValue}','.*')
+                OR tf.name REGEXP CONCAT('.*','${searchValue}','.*'))
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+        ORDER BY tf.create_time DESC
+	</select>
+	<select id="findFontDetail" parameterType="java.util.Map" resultType= "com.fd.font.cloud.font.vo.FontDetailVo">
+		SELECT 
+			tf.font_id AS fontId,tf.code,tf.name,tf.introduction,tf.author,
+			tf.curr_font_version_id AS currFontVersionId,tf.status,tf.create_by as createBy,tf.create_time as createTime,tfv.ttf_size AS fontSize,
+			tfv.default_detail_pic as picUrl,tfv.ttf_download_url as ttfDownloadUrl
+		FROM t_font tf
+		INNER JOIN t_font_version tfv ON tfv.font_version_id = tf.curr_font_version_id and tf.font_id=tfv.font_id
+		WHERE tf.is_deleted='0' and tf.font_id =#{fontId}
+	</select>
+	<select id="findFontDetailAll" resultType= "com.fd.font.cloud.font.vo.FontDetailVo">
+		SELECT 
+			tf.font_id AS fontId,tf.code,tf.name,tf.introduction,tf.author,
+			tf.curr_font_version_id AS currFontVersionId,tf.status,tf.create_by as createBy,tf.create_time as createTime,tfv.ttf_size AS fontSize,
+			tfv.default_detail_pic as picUrl,tfv.ttf_download_url as ttfDownloadUrl
+		FROM t_font tf
+		INNER JOIN t_font_version tfv ON tfv.font_version_id = tf.curr_font_version_id and tf.font_id=tfv.font_id
+		WHERE tf.is_deleted='0'
+	</select>
+	<select id="findAuthorThink" resultType= "String" parameterType="String">
+		SELECT author from t_font WHERE author REGEXP CONCAT('.*','${author}','.*')
+		GROUP BY author
+	</select>
+	<select id="findNameThink" resultType= "String" parameterType="String">
+		SELECT name from t_font WHERE name REGEXP CONCAT('.*','${search}','.*')
+		GROUP BY name
+	</select>
+</mapper>

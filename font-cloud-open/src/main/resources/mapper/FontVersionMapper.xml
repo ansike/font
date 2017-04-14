@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fd.font.cloud.font.dao.FontVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.fd.font.cloud.font.entity.FontVersion" >
+    <id column="font_version_id" property="fontVersionId" jdbcType="INTEGER" />
+    <result column="font_id" property="fontId" jdbcType="INTEGER" />
+    <result column="version_name" property="versionName" jdbcType="VARCHAR" />
+    <result column="ttf_download_url" property="ttfDownloadUrl" jdbcType="VARCHAR" />
+    <result column="ttf_size" property="ttfSize" jdbcType="VARCHAR" />
+    <result column="default_cover_pic" property="defaultCoverPic" jdbcType="VARCHAR" />
+    <result column="default_detail_pic" property="defaultDetailPic" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_by" property="createBy" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    font_version_id, font_id, version_name, ttf_download_url, ttf_size, default_cover_pic, 
+    default_detail_pic, status, create_by, create_time, update_by, update_time, is_deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fd.font.cloud.font.entity.FontVersionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_font_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_font_version
+    where font_version_id = #{fontVersionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_font_version
+    where font_version_id = #{fontVersionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fd.font.cloud.font.entity.FontVersionExample" >
+    delete from t_font_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fd.font.cloud.font.entity.FontVersion" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fontVersionId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_font_version (font_id, version_name, ttf_download_url, 
+      ttf_size, default_cover_pic, default_detail_pic, 
+      status, create_by, create_time, 
+      update_by, update_time, is_deleted
+      )
+    values (#{fontId,jdbcType=INTEGER}, #{versionName,jdbcType=VARCHAR}, #{ttfDownloadUrl,jdbcType=VARCHAR}, 
+      #{ttfSize,jdbcType=VARCHAR}, #{defaultCoverPic,jdbcType=VARCHAR}, #{defaultDetailPic,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createBy,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fd.font.cloud.font.entity.FontVersion" >
+    <selectKey resultType="java.lang.Integer" keyProperty="fontVersionId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_font_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fontId != null" >
+        font_id,
+      </if>
+      <if test="versionName != null" >
+        version_name,
+      </if>
+      <if test="ttfDownloadUrl != null" >
+        ttf_download_url,
+      </if>
+      <if test="ttfSize != null" >
+        ttf_size,
+      </if>
+      <if test="defaultCoverPic != null" >
+        default_cover_pic,
+      </if>
+      <if test="defaultDetailPic != null" >
+        default_detail_pic,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fontId != null" >
+        #{fontId,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null" >
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="ttfDownloadUrl != null" >
+        #{ttfDownloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ttfSize != null" >
+        #{ttfSize,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultCoverPic != null" >
+        #{defaultCoverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultDetailPic != null" >
+        #{defaultDetailPic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fd.font.cloud.font.entity.FontVersionExample" resultType="java.lang.Integer" >
+    select count(*) from t_font_version
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_font_version
+    <set >
+      <if test="record.fontVersionId != null" >
+        font_version_id = #{record.fontVersionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fontId != null" >
+        font_id = #{record.fontId,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionName != null" >
+        version_name = #{record.versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ttfDownloadUrl != null" >
+        ttf_download_url = #{record.ttfDownloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ttfSize != null" >
+        ttf_size = #{record.ttfSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultCoverPic != null" >
+        default_cover_pic = #{record.defaultCoverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultDetailPic != null" >
+        default_detail_pic = #{record.defaultDetailPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_font_version
+    set font_version_id = #{record.fontVersionId,jdbcType=INTEGER},
+      font_id = #{record.fontId,jdbcType=INTEGER},
+      version_name = #{record.versionName,jdbcType=VARCHAR},
+      ttf_download_url = #{record.ttfDownloadUrl,jdbcType=VARCHAR},
+      ttf_size = #{record.ttfSize,jdbcType=VARCHAR},
+      default_cover_pic = #{record.defaultCoverPic,jdbcType=VARCHAR},
+      default_detail_pic = #{record.defaultDetailPic,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fd.font.cloud.font.entity.FontVersion" >
+    update t_font_version
+    <set >
+      <if test="fontId != null" >
+        font_id = #{fontId,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null" >
+        version_name = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="ttfDownloadUrl != null" >
+        ttf_download_url = #{ttfDownloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ttfSize != null" >
+        ttf_size = #{ttfSize,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultCoverPic != null" >
+        default_cover_pic = #{defaultCoverPic,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultDetailPic != null" >
+        default_detail_pic = #{defaultDetailPic,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where font_version_id = #{fontVersionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fd.font.cloud.font.entity.FontVersion" >
+    update t_font_version
+    set font_id = #{fontId,jdbcType=INTEGER},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      ttf_download_url = #{ttfDownloadUrl,jdbcType=VARCHAR},
+      ttf_size = #{ttfSize,jdbcType=VARCHAR},
+      default_cover_pic = #{defaultCoverPic,jdbcType=VARCHAR},
+      default_detail_pic = #{defaultDetailPic,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=TINYINT}
+    where font_version_id = #{fontVersionId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List" >
+    insert into t_font_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="list[0].fontVersionId!=null" >
+        font_version_id,
+      </if>
+      <if test="list[0].fontId!=null" >
+        font_id,
+      </if>
+      <if test="list[0].versionName!=null" >
+        version_name,
+      </if>
+      <if test="list[0].ttfDownloadUrl!=null" >
+        ttf_download_url,
+      </if>
+      <if test="list[0].ttfSize!=null" >
+        ttf_size,
+      </if>
+      <if test="list[0].defaultCoverPic!=null" >
+        default_cover_pic,
+      </if>
+      <if test="list[0].defaultDetailPic!=null" >
+        default_detail_pic,
+      </if>
+      <if test="list[0].status!=null" >
+        status,
+      </if>
+      <if test="list[0].createBy!=null" >
+        create_by,
+      </if>
+      <if test="list[0].createTime!=null" >
+        create_time,
+      </if>
+      <if test="list[0].updateBy!=null" >
+        update_by,
+      </if>
+      <if test="list[0].updateTime!=null" >
+        update_time,
+      </if>
+      <if test="list[0].isDeleted!=null" >
+        is_deleted,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator="," >
+      <trim prefix=" (" suffix=")" suffixOverrides="," >
+        <if test="item.fontVersionId!=null" >
+          #{item.fontVersionId,jdbcType=INTEGER},
+        </if>
+        <if test="item.fontId!=null" >
+          #{item.fontId,jdbcType=INTEGER},
+        </if>
+        <if test="item.versionName!=null" >
+          #{item.versionName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.ttfDownloadUrl!=null" >
+          #{item.ttfDownloadUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.ttfSize!=null" >
+          #{item.ttfSize,jdbcType=VARCHAR},
+        </if>
+        <if test="item.defaultCoverPic!=null" >
+          #{item.defaultCoverPic,jdbcType=VARCHAR},
+        </if>
+        <if test="item.defaultDetailPic!=null" >
+          #{item.defaultDetailPic,jdbcType=VARCHAR},
+        </if>
+        <if test="item.status!=null" >
+          #{item.status,jdbcType=TINYINT},
+        </if>
+        <if test="item.createBy!=null" >
+          #{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          #{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          #{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateTime!=null" >
+          #{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.isDeleted!=null" >
+          #{item.isDeleted,jdbcType=TINYINT},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" separator=";" >
+      update t_font_version
+      <set >
+        <if test="item.fontId!=null" >
+          font_id=#{item.fontId,jdbcType=INTEGER},
+        </if>
+        <if test="item.versionName!=null" >
+          version_name=#{item.versionName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.ttfDownloadUrl!=null" >
+          ttf_download_url=#{item.ttfDownloadUrl,jdbcType=VARCHAR},
+        </if>
+        <if test="item.ttfSize!=null" >
+          ttf_size=#{item.ttfSize,jdbcType=VARCHAR},
+        </if>
+        <if test="item.defaultCoverPic!=null" >
+          default_cover_pic=#{item.defaultCoverPic,jdbcType=VARCHAR},
+        </if>
+        <if test="item.defaultDetailPic!=null" >
+          default_detail_pic=#{item.defaultDetailPic,jdbcType=VARCHAR},
+        </if>
+        <if test="item.status!=null" >
+          status=#{item.status,jdbcType=TINYINT},
+        </if>
+        <if test="item.createBy!=null" >
+          create_by=#{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          create_time=#{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          update_by=#{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateTime!=null" >
+          update_time=#{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.isDeleted!=null" >
+          is_deleted=#{item.isDeleted,jdbcType=TINYINT},
+        </if>
+      </set>
+      where 
+      font_version_id = #{item.fontVersionId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>

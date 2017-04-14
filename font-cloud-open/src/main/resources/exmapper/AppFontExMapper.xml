@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fd.font.cloud.developer.dao.AppFontExMapper">
+	<resultMap id="AppFontResponseResultMap" type="com.fd.font.cloud.developer.vo.AppFontResponse">
+		<result column="app_font_id" jdbcType="INTEGER" property="appFontId" />
+		<result column="font_id" jdbcType="INTEGER" property="fontId" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+
+		<result column="authz_date" jdbcType="DATE" property="authzDate" />
+		<result column="unauthz_date" jdbcType="DATE" property="unauthzDate" />
+
+	</resultMap>
+
+	<resultMap id="UnauthzFontResultMap" type="com.fd.font.cloud.developer.vo.UnauthzFont">
+		<result column="app_font_id" jdbcType="INTEGER" property="appFontId" />
+		<result column="font_id" jdbcType="INTEGER" property="fontId" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+		<result column="ttf_size" jdbcType="INTEGER" property="fontSize" />
+		<result column="authz_date" jdbcType="DATE" property="authzDate" />
+		<result column="unauthz_date" jdbcType="DATE" property="unauthzDate" />
+
+	</resultMap>
+
+	<select id="selectAppFontByAppId" parameterType="com.fd.font.cloud.app.entity.App" resultMap="AppFontResponseResultMap">
+		select taf.app_font_id as app_font_id, tf.font_id as font_id, tf.code, tf.name,
+		tfv.default_cover_pic as pic_url, IF (DATEDIFF(taf.unauthz_date, CURDATE()) &lt;= 15,3,taf.STATUS) AS STATUS,
+		taf.authz_date, taf.unauthz_date,tfv.ttf_download_url as ttfDownloadUrl
+		FROM t_app ta
+		LEFT JOIN t_app_font taf on taf.app_id=ta.app_id AND taf.is_deleted=0
+		LEFT JOIN t_font tf on tf.font_id=taf.font_id AND tf.is_deleted=0
+		LEFT JOIN t_font_version tfv on tfv.font_version_id=tf.curr_font_version_id AND tfv.is_deleted=0 and tfv.font_id=tf.font_id
+		WHERE ta.app_Id= #{appId,jdbcType=INTEGER} AND ta.developer_id=#{developerId}
+		AND taf.status=1
+	</select>
+
+	<select id="fontList" parameterType="java.util.Map" resultMap="UnauthzFontResultMap">
+		SELECT tf.font_id as font_id, tf.code, tf.name, tfv.default_cover_pic as pic_url, tfv.ttf_size,IFNULL(taf.`status`,0) as status
+		FROM t_font tf
+		INNER JOIN t_font_version tfv on tf.curr_font_version_id=tfv.font_version_id AND tfv.font_id=tf.font_id
+		LEFT JOIN t_app ta on ta.app_id=#{appId} AND ta.developer_id=#{developerId}
+		LEFT JOIN t_app_font taf on taf.font_version_id = tfv.font_version_id AND taf.font_id=tf.font_id AND taf.app_id=ta.app_id
+		WHERE tf.is_deleted=0 AND tfv.is_deleted=0
+		<if test="status!=null">
+			AND taf.status=#{status}
+		</if>
+		ORDER BY taf.`status` DESC
+
+	</select>
+
+	<select id="selectUnauthing" parameterType="int" resultType="java.util.Map">
+		SELECT td.mobile,tf.font_id as fontId,tf.name,tf.author,taf.authz_date as authzDate, taf.unauthz_date as unauthzDate
+		FROM t_developer td
+		INNER JOIN t_app ta on td.developer_id=ta.developer_id
+		INNER JOIN t_app_font taf ON taf.app_id = ta.app_id AND taf.is_deleted = 0
+		INNER JOIN t_font tf ON tf.font_id = taf.font_id AND tf.is_deleted = 0
+		INNER JOIN t_font_version tfv ON tfv.font_version_id = tf.curr_font_version_id AND tfv.is_deleted = 0 and tf.font_id=tfv.font_id
+		WHERE LENGTH(td.mobile)=11 AND IF ( DATEDIFF(taf.unauthz_date, CURDATE()) &lt;= #{day}, 3, taf. STATUS)=3
+		GROUP BY td.mobile
+	</select>
+
+	<select id="selectUnauthzFonts" parameterType="java.util.Map" resultMap="UnauthzFontResultMap">
+		SELECT f.font_id AS font_id,f. CODE,f. NAME,fv.default_cover_pic AS pic_url,fv.ttf_size
+		FROM t_font AS f
+		INNER JOIN t_font_version AS fv ON f.font_id = fv.font_id
+		WHERE f.font_id NOT IN (
+			SELECT font_id FROM t_app_font AS af
+			WHERE app_id = #{appId} AND af.is_deleted = 0  AND af.status=1
+			<if test="fonts!=null">
+				AND font_id NOT IN 
+				<foreach item="item" index="index" collection="fonts" open="(" separator="," close=")">
+		            #{item}
+		        </foreach>
+			</if>
+		)
+	</select>
+	<select id="selectAppNums" parameterType="java.lang.Integer" resultType="java.util.Map">
+		SELECT ta.app_id as appId,COUNT(*) as count FROM t_app ta
+		INNER JOIN t_app_font taf on taf.app_id =ta.app_id AND taf.is_deleted=0
+		WHERE ta.is_deleted=0 AND ta.developer_id=#{developerId} AND taf.status=1
+		GROUP BY ta.app_id
+	</select>
+	
+	<select id="selectAppFontByPage" parameterType="com.fd.font.cloud.app.entity.App" resultMap="AppFontResponseResultMap">
+		select taf.app_font_id as app_font_id, tf.font_id as font_id, tf.code, tf.name,
+		tfv.default_cover_pic as pic_url, IF (DATEDIFF(taf.unauthz_date, CURDATE()) &lt;= 15,3,taf.STATUS) AS STATUS,
+		taf.authz_date, taf.unauthz_date,taf.app_font_pic as h5PicUrl
+		FROM t_app ta
+		LEFT JOIN t_app_font taf on taf.app_id=ta.app_id AND taf.is_deleted=0
+		LEFT JOIN t_font tf on tf.font_id=taf.font_id AND tf.is_deleted=0
+		LEFT JOIN t_font_version tfv on tfv.font_version_id=tf.curr_font_version_id AND tfv.is_deleted=0 and tfv.font_id=tf.font_id
+		WHERE ta.app_Id= #{appId,jdbcType=INTEGER} AND ta.developer_id=#{developerId}
+		AND taf.status=1 and DATEDIFF(taf.unauthz_date, CURDATE())>=0
+		ORDER BY tf.create_time DESC
+	</select>
+</mapper>

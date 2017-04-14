@@ -1,0 +1,45 @@
+.retrieve_content {
+    width: 574px;
+    margin: auto;
+    margin-top: 143px;
+}
+.retrieve_tab{
+    margin-bottom: 80px;
+}
+.retrieve_tab .step {
+    width: 50%;
+    float: left;
+    border-top: solid 1px #BABABA;
+    color: #BABABA;
+    position: relative;
+    text-align: center;
+    padding-top: 23px;
+    font-size: 16px;
+}
+
+.retrieve_tab .step .number {
+    display: block;
+    width: 26px;
+    height: 26px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 26px;
+    color: #FFFFFF;
+    position: absolute;
+    background:#BABABA ;
+    left: 50%;
+    top: -13px;
+    transform: translate(-50%);
+}
+
+.retrieve_tab .active {
+    border-top-color: #68BFFC;
+    color: #68BFFC;
+}
+
+.retrieve_tab .active .number {
+    background: #68BFFC;
+}
+.nextBtn{
+    margin-top: 20px;
+}

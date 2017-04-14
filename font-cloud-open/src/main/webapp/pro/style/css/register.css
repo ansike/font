@@ -1,0 +1,49 @@
+.register {
+    margin: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+.register .loginText {
+    font-size: 16px;
+    float: right;
+}
+
+.register .loginText .relogin {
+    color: #68BFFC;
+}
+
+.register .content {
+    padding: 80px 50px 0;
+    font-size: 16px;
+    color: #494949;
+}
+
+.register .content .register_pic {
+    width: 516px;
+    height: 515px;
+    float: left;
+}
+
+.register .content .register_pic > img {
+    width: 100%;
+    height: 100%;
+}
+
+.register .content .register_content {
+    padding: 30px 60px 0 0;
+    width: 444px;
+    float: right;
+}
+
+.register .content .register_content > ul {
+    width: 100%;
+}
+
+
+
+
+
+

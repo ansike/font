@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+		                   http://www.springframework.org/schema/util
+		                   http://www.springframework.org/schema/util/spring-util.xsd
+		                   http://www.springframework.org/schema/context
+		                   http://www.springframework.org/schema/context/spring-context.xsd" >
+	
+	
+	<context:component-scan base-package="com.fd.font.cloud" />
+	<context:property-placeholder location="classpath:*.properties"/>
+	
+	<import resource="classpath:spring-datasource.xml" />
+	<import resource="classpath:spring-redis.xml"/>
+	<!-- 图片验证码 -->
+	<bean id="kaptchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">no</prop>
+                        <prop key="kaptcha.border.color">105,179,90</prop>
+                        <prop key="kaptcha.textproducer.font.color">blue</prop>
+                        <prop key="kaptcha.textproducer.font.size">85</prop>
+                        <prop key="kaptcha.image.width">250</prop>
+                        <prop key="kaptcha.image.height">90</prop>
+                        <prop key="kaptcha.session.key">code</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+                        <!-- 自定义图片干扰线 -->
+<!--                         <prop key="kaptcha.noise.impl">com.fd.fof.code.utils.FDNoiseProducer</prop> -->
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+	<bean id="appProperties" class="com.fd.font.cloud.util.PropertiesUtil">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:/common.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>

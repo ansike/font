@@ -1,0 +1,401 @@
+.container {
+    padding: 0;
+}
+
+.container .searchFont {
+    padding: 25px 0;
+    border-bottom: solid 1px #68BFFC;
+}
+
+.container .searchBox {
+    background: #68BFFC;
+    border-radius: 4px;
+    float: right;
+    position: relative;
+}
+
+.container .searchBox .search_ipt {
+    width: 210px;
+    height: 30px;
+    box-sizing: border-box;
+    padding:0 0 0 10px;
+    font-size: 14px;
+    border: solid 1px #E3E3E3;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.container .searchBox .search_ipt:focus {
+    border-color:#68BFFC;
+}
+.container .searchBox .searchBtn {
+    float: right;
+    width: 47px;
+    height: 30px;
+    cursor: pointer;
+    background: url("/pro/img/search.png") no-repeat center;
+    background-size: 21px 21px;
+}
+
+.ul_res:before{
+    content:"";
+    width: 15px;
+    height:15px;
+    background: #FFFFFF;
+    position: absolute;
+    left: 11px;
+    top: -8px;
+    transform: rotate(45deg);
+    z-index: 1;
+    border-style: solid;
+    border-width: 1px;
+    border-top-color: #E3E3E3;
+    border-left-color: #E3E3E3;
+    border-right-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+.ul_res {
+    width: 210px;
+    background: #FFFFFF;
+    position: absolute;
+    left: 0;
+    top: 45px;
+    border:#E3E3E3 1px solid;
+    border-radius: 4px;
+    padding-top: 6px;
+    z-index:10;
+}
+
+.search_result {
+}
+.result_box{
+    margin-top: 6px;
+}
+.search_result .dl_title {
+    line-height: 22px;
+    font-size: 14px;
+    font-weight: normal;
+    margin:0 12px;
+    padding-left: 14px;
+    border-bottom: solid 1px #68BFFC;
+
+}
+
+.font_name .dl_title {
+    background: url("/pro/img/font_name.png") no-repeat 0 center;
+    background-size: 12px 12px;
+}
+
+.author_name .dl_title {
+    background: url("/pro/img/author_name.png") no-repeat 0 center;
+    background-size: 12px 12px;
+
+}
+
+
+.category_name .dl_title {
+    background: url("/pro/img/category.png") no-repeat 3px center;
+    background-size: 12px 12px;
+}
+
+.result_box .dl_body {
+
+    padding: 2px 0;
+    margin-bottom: 8px;
+}
+
+.author_name .dl_body {
+
+}
+
+.res_items {
+    font-size: 12px;
+    line-height: 20px;
+    cursor: pointer;
+    color: #cccccc;
+    padding-left: 26px;
+    overflow: hidden;
+}
+
+.localhistory .res_items {
+    line-height: 20px;
+}
+.localhistory{
+    padding-bottom: 12px;
+    padding-top: 10px;
+}
+.ipted {
+    color: #68BFFC;
+}
+.res_items:hover{
+    background:#68BFFC;
+    color: #FFFFFF;
+}
+.res_items:hover .ipted{
+    color: #FFFFFF;
+}
+.hotLabel {
+    margin-top: 2px;
+    border-top: solid 3px #68BFFC;
+    border-bottom: solid 1px #E3E3E3;
+    line-height: 80px;
+}
+
+ .fontLabel {
+    display: inline-block;
+    height: 26px;
+    line-height: 24px;
+    padding: 0 10px;
+    text-align: center;
+    color: #68BFFC;
+    border: solid 1px #68BFFC;
+    border-radius: 26px;
+    cursor: pointer;
+    margin-right: 15px;
+    text-decoration: none;
+     position: relative;
+}
+.hotLabel>a:hover{
+    color:#FFFFFF ;
+    background: #68BFFC;
+}
+.hotLabel .active{
+    background: #68BFFC;
+    color: #FFFFFF;
+}
+.hotLabel .new:after{
+    content: "";
+    width: 40px;
+    height: 20px;
+    background:url("/pro/img/new.png") no-repeat center;
+    background-size: 100%;
+    position: absolute;
+    right: -22px;
+    top: -14px;
+}
+.font_label_box .checked{
+    position: relative;
+}
+.font_label_box .checked:after{
+    content: "";
+    width: 18px;
+    height: 18px;
+    background:url(/pro/img/close.png) no-repeat center;
+    background-size: 100%;
+    position: absolute;
+    right: -8px;
+    top: -9px;
+}
+.label_hot {
+    margin-bottom:29px;
+    padding-top: 29px;
+    margin-top: 2px;
+    border-top: solid 3px #68BFFC;
+}
+
+.font_label_box {
+    float: left;
+    padding-left: 14px;
+    border-left: solid 2px #68BFFC;
+    margin-top:8px;
+
+}
+.font_label_box .active{
+    background: #68BFFC;
+    color: #FFFFFF;
+}
+.hot_New {
+    float: right;
+}
+
+.hot_New .active {
+    color: #68BFFC;
+    border-color: #68BFFC;
+}
+
+.hot_New .categories {
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    line-height: 28px;
+    border:solid 1px #D4D6D5;
+    float: left;
+    text-decoration: none;
+}
+
+.hot_New .hot {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-right: 0;
+
+}
+.hot_New .new {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-left: 0;
+
+}
+.hot_New .active{
+    background:#68BFFC ;
+    color: #FFFFFF;
+    border-color:#68BFFC  ;
+}
+.hot_New .rightLine {
+    border-right: solid 1px #cccccc;
+    padding-right: 7px;
+}
+
+/*.fontList {*/
+    /*margin-left: -6px;*/
+    /*margin-right: -6px;*/
+/*}*/
+
+/*.fontList .font {*/
+    /*width: 290px;*/
+    /*height: 285px;*/
+    /*box-sizing: border-box;*/
+    /*margin: 0 6px 26px;*/
+    /*float: left;*/
+    /*position: relative;*/
+/*}*/
+.fontList {
+    display: flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    margin: 0 -12px;
+}
+.fontList .font {
+    width: 384px;
+    height: 306px;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 12px 30px;
+}
+.fontList .font>div{
+    border-radius: 4px;
+    overflow: hidden;
+    position: absolute;
+    top:0;
+    transition: top .2s ease-out;
+}
+.fontList .font>div:hover{
+    top:-6px;
+    box-shadow: 2px 2px 8px #cccccc;
+    transition: top .2s ease-out;
+}
+/*.fontList .font>div:hover .fontBox{*/
+    /*margin-top: 5px;*/
+/*}*/
+.fontList .font .fontImg {
+    width: 100%;
+    height: 216px;
+}
+
+.fontList .font .fontBox {
+    height: 90px;
+    padding: 15px 10px 20px 16px;
+    border:solid 1px #E3E3E3;
+    border-top:0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.fontBox .fontTitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-left:-6px;
+}
+
+.fontBox .fontInfo {
+    font-size: 14px;
+    margin-top: 9px;
+}
+
+.fontBox .fontInfo .time {
+    font-size: 14px;
+    float: right;
+}
+
+.fontBox .operation .download {
+    cursor: pointer;
+}
+
+.fontBox .operation .addCar {
+    float: right;
+    cursor: pointer;
+}
+
+.fontDetail{
+    padding: 0 4px;
+}
+
+
+.font_pagination {
+    height: 40px;
+    margin-bottom: 42px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.font_pagination .pageNumBox {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: solid 1px #BABABA;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 4px;
+}
+#turn_page{
+    border-color:#68BFFC ;
+}
+.pageNum:hover{
+    background: #68BFFC;
+    color: #FFFFFF;
+    border: solid 1px #68BFFC;
+}
+.pageNumBox .active{
+    background: #68BFFC;
+    color: #FFFFFF;
+    border: solid 1px #68BFFC;
+}
+.previous {
+    border: 0;
+    background: url("/pro/img/previous_page.png") no-repeat center;
+    background-size: 14px 25px;
+}
+
+.next {
+    border: 0;
+    background: url("/pro/img/next_page.png") no-repeat center;
+    background-size: 14px 25px;
+}
+
+.font_pagination .pageIpt {
+    cursor: auto;
+}
+.font_pagination .pageIpt:focus{
+    border-color:#68BFFC ;
+}
+#turn_page {
+    background: #68BFFC;
+    color: #FFFFFF;
+    outline: none;
+}
+.fontfind{
+    text-align: center;
+    line-height: 500px;
+    width: 100%;
+}
+.fontfind>span{
+    padding-left: 20px;
+    background: url("/pro/img/alert.png") no-repeat 2px center;
+    background-size: 16px;
+}

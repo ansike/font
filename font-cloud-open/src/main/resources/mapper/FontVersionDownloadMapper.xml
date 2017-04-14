@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fd.font.cloud.font.dao.FontVersionDownloadMapper" >
+  <resultMap id="BaseResultMap" type="com.fd.font.cloud.font.entity.FontVersionDownload" >
+    <id column="download_id" property="downloadId" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="download_num" property="downloadNum" jdbcType="CHAR" />
+    <result column="font_version_id" property="fontVersionId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    download_id, create_by, create_time, update_by, update_time, download_num, font_version_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fd.font.cloud.font.entity.FontVersionDownloadExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_font_version_download
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_font_version_download
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_font_version_download
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fd.font.cloud.font.entity.FontVersionDownloadExample" >
+    delete from t_font_version_download
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fd.font.cloud.font.entity.FontVersionDownload" >
+    <selectKey resultType="java.lang.Integer" keyProperty="downloadId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_font_version_download (create_by, create_time, update_by, 
+      update_time, download_num, font_version_id
+      )
+    values (#{createBy,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{downloadNum,jdbcType=CHAR}, #{fontVersionId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fd.font.cloud.font.entity.FontVersionDownload" >
+    <selectKey resultType="java.lang.Integer" keyProperty="downloadId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_font_version_download
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="downloadNum != null" >
+        download_num,
+      </if>
+      <if test="fontVersionId != null" >
+        font_version_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createBy != null" >
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downloadNum != null" >
+        #{downloadNum,jdbcType=CHAR},
+      </if>
+      <if test="fontVersionId != null" >
+        #{fontVersionId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fd.font.cloud.font.entity.FontVersionDownloadExample" resultType="java.lang.Integer" >
+    select count(*) from t_font_version_download
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_font_version_download
+    <set >
+      <if test="record.downloadId != null" >
+        download_id = #{record.downloadId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateBy != null" >
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.downloadNum != null" >
+        download_num = #{record.downloadNum,jdbcType=CHAR},
+      </if>
+      <if test="record.fontVersionId != null" >
+        font_version_id = #{record.fontVersionId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_font_version_download
+    set download_id = #{record.downloadId,jdbcType=INTEGER},
+      create_by = #{record.createBy,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      download_num = #{record.downloadNum,jdbcType=CHAR},
+      font_version_id = #{record.fontVersionId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fd.font.cloud.font.entity.FontVersionDownload" >
+    update t_font_version_download
+    <set >
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downloadNum != null" >
+        download_num = #{downloadNum,jdbcType=CHAR},
+      </if>
+      <if test="fontVersionId != null" >
+        font_version_id = #{fontVersionId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fd.font.cloud.font.entity.FontVersionDownload" >
+    update t_font_version_download
+    set create_by = #{createBy,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      download_num = #{downloadNum,jdbcType=CHAR},
+      font_version_id = #{fontVersionId,jdbcType=INTEGER}
+    where download_id = #{downloadId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatchSelective" parameterType="java.util.List" >
+    insert into t_font_version_download
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="list[0].downloadId!=null" >
+        download_id,
+      </if>
+      <if test="list[0].createBy!=null" >
+        create_by,
+      </if>
+      <if test="list[0].createTime!=null" >
+        create_time,
+      </if>
+      <if test="list[0].updateBy!=null" >
+        update_by,
+      </if>
+      <if test="list[0].updateTime!=null" >
+        update_time,
+      </if>
+      <if test="list[0].downloadNum!=null" >
+        download_num,
+      </if>
+      <if test="list[0].fontVersionId!=null" >
+        font_version_id,
+      </if>
+    </trim>
+     values 
+    <foreach collection="list" index="index" item="item" separator="," >
+      <trim prefix=" (" suffix=")" suffixOverrides="," >
+        <if test="item.downloadId!=null" >
+          #{item.downloadId,jdbcType=INTEGER},
+        </if>
+        <if test="item.createBy!=null" >
+          #{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          #{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          #{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateTime!=null" >
+          #{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.downloadNum!=null" >
+          #{item.downloadNum,jdbcType=CHAR},
+        </if>
+        <if test="item.fontVersionId!=null" >
+          #{item.fontVersionId,jdbcType=INTEGER},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" index="index" separator=";" >
+      update t_font_version_download
+      <set >
+        <if test="item.createBy!=null" >
+          create_by=#{item.createBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime!=null" >
+          create_time=#{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateBy!=null" >
+          update_by=#{item.updateBy,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateTime!=null" >
+          update_time=#{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.downloadNum!=null" >
+          download_num=#{item.downloadNum,jdbcType=CHAR},
+        </if>
+        <if test="item.fontVersionId!=null" >
+          font_version_id=#{item.fontVersionId,jdbcType=INTEGER},
+        </if>
+      </set>
+      where 
+      download_id = #{item.downloadId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>

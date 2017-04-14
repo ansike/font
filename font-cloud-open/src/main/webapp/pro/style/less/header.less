@@ -1,0 +1,81 @@
+body, ul, li, dl, dt, dd, p, ol, h1, h2, h3, h4, h5, h6, form, img, table, fieldset, legend {
+  margin: 0;
+  padding: 0;
+}
+
+ul, li, ol {
+  list-style: none;
+}
+
+img, fieldset {
+  border: 0;
+}
+
+img {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 100;
+}
+
+body {
+  font-size: 12px;
+  font-family: "Microsoft Yahei";
+}
+
+input, a {
+  outline: none;
+}
+.header-wrapper{
+  width: 100%;
+  background:#68BFFC;
+  .header {
+    width: 80%;
+    margin: auto;
+    height:70px;
+    line-height: 70px;
+    color: white;
+    .logo {
+      width: 22%;
+      height:100%;
+      float: left;
+      background: url(../../img/logo.png) no-repeat center center;
+      background-size: 100% 60%;
+    }
+    .nav{
+      width: 60%;
+      float: left;
+      margin-left: 100px;
+      overflow: hidden;
+      .navChild{
+         width: 20%;
+         height:100%;
+         float: left;
+         text-align: center;
+         font-size: 20px;
+         cursor: pointer;
+         color: white;
+       }
+      .checked{
+        color: #047CD0;
+      }
+    }
+    .loginAndRegister{
+      float: right;
+      font-size: 14px;
+      &>span{
+        cursor: pointer;
+      }
+      .line{
+        margin: 0 5px;
+      }
+    }
+  }
+}
+
